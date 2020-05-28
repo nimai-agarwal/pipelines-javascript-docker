@@ -1,7 +1,7 @@
 name: Labeler
 on: 
   pull_request:
-    branches: develop
+    branches: [master, develop]
 
 jobs:
   label:
