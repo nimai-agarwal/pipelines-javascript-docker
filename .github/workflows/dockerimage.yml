@@ -10,7 +10,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      servicePrincipal: ${{ '14d58199-c9d6-4c8f-b8b3-86a4af5f6381' }}
+      servicePrincipal: ${{ secrets.SERVICE_PRINCIPAL }}
       servicePrincipalPassword: ${{'97f2d985-d74d-4131-be7b-6dc5b7dab328' }}
       tenantId: ${{'9723d66d-a47e-4929-9193-9d830fcff062' }}
       imageRepository: ${{ 'nimaipipelinesjavascriptdocker' }}
