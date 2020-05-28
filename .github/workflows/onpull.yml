@@ -1,0 +1,9 @@
+name: Labeler
+on: [pull_request]
+
+jobs:
+  label:
+    runs-on: ubuntu-latest
+    steps:
+    - name: test pull triggered
+      run:  echo 'pull request triggered'
