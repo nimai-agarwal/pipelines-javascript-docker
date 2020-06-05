@@ -1,22 +1,11 @@
-name: Docker Image CI
-
-on: 
+name: build
+on:
   pull_request:
-    branches: develop
-  
+    branches: [ master ]
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      servicePrincipal: ${{ '14d58199-c9d6-4c8f-b8b3-86a4af5f6381' }}
-      servicePrincipalPassword: ${{'97f2d985-d74d-4131-be7b-6dc5b7dab328' }}
-      tenantId: ${{'9723d66d-a47e-4929-9193-9d830fcff062' }}
-      imageRepository: ${{ 'nimaipipelinesjavascriptdocker' }}
-      containerRegistry: ${{ 'containerregistrytestnimai.azurecr.io' }}
-      tag: ${{ github.run_number }}
-      deployer: ${{ github.actor }}
     steps:
-      - name: Run python script
-        run: echo 'testing if triggers on pull request creation'
-          
-
+    - uses: actions/checkout@master
+    - name: Run a one-line script
+      run: echo Hello, world!
