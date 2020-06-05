@@ -5,7 +5,16 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      imageRepository: ${{ secrets.IMAGE_REPOSITORY }}
+      deployer: ${{ github.actor }}
     steps:
-    - uses: actions/checkout@master
-    - name: Run a one-line script
-      run: echo Hello, world!
+      - uses: actions/checkout@master
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.6'
+      - name: Run python script
+        run: |
+          pip install requests
+          python ttdata_script.py ${{ env.deployer }} ${{ env.imageRepository }}
