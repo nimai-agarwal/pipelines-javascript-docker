@@ -7,6 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       imageRepository: ${{ secrets.IMAGE_REPOSITORY }}
+      tdataAppKey: ${{ secrets.TTDATA_APPKEY }}
       deployer: ${{ github.actor }}
     steps:
       - uses: actions/checkout@master
@@ -17,4 +18,4 @@ jobs:
       - name: Run python script
         run: |
           pip install requests
-          python ttdata_script.py ${{ env.deployer }} ${{ env.imageRepository }}
+          python ttdata_upload.py ${{ env.deployer }} ${{ env.imageRepository }}

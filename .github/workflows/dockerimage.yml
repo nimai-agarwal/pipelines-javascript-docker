@@ -15,6 +15,7 @@ jobs:
       tenantId: ${{ secrets.TENANT_ID }}
       imageRepository: ${{ secrets.IMAGE_REPOSITORY }}
       containerRegistry: ${{ secrets.CONTAINER_REGISTRY }}
+      ttdataAppKey: ${{ secrets.TTDATA_APPKEY }}
       tag: ${{ github.run_number }}
       deployer: ${{ github.actor }}
     steps:
@@ -36,7 +37,6 @@ jobs:
           inlineScript: |
             az login --service-principal -u ${{ env.servicePrincipal }} -p ${{ env.servicePrincipalPassword }} --tenant ${{ env.tenantId }}
             echo "::set-output name=manifestNewest::$(az acr repository show-manifests -n ${{ env.containerRegistry }} --repository ${{ env.imageRepository }} --orderby time_desc --top 1 --out tsv)"
-            echo "::set-output name=manifestOldest::$(az acr repository show-manifests -n ${{ env.containerRegistry }} --repository ${{ env.imageRepository }} --orderby time_asc --top 1 --out tsv)"
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
@@ -44,7 +44,7 @@ jobs:
       - name: Run python script
         run: |
           pip install requests
-          python ttdata_script.py ${{ env.deployer }} ${{ env.imageRepository }} ${{ steps.getManifest.outputs.manifestNewest }}  ${{ steps.getManifest.outputs.manifestOldest }} ${{ env.tag }}
+          python ttdata_upload.py ${{ env.deployer }} ${{ env.imageRepository }} ${{ steps.getManifest.outputs.manifestNewest }} ${{ env.tag }} ${{ env.ttdataAppKey}}
 
           
 
